@@ -1,61 +1,151 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Machine & Manpower Capacity Planner</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Free manufacturing engineering calculators: machine capacity, manpower, OEE, takt time, cycle time and scrap rate.">
+<meta name="keywords" content="manufacturing calculator, machine capacity calculator, manpower calculator, OEE calculator, takt time calculator, scrap rate calculator">
+<meta name="theme-color" content="#10213d">
+<title>Manufacturing Engineering Tools | Free Calculators</title>
 <style>
-:root{font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:#172033;background:#f4f7fb;--blue:#2358d5;--line:#dfe6f0;--muted:#64748b}*{box-sizing:border-box}body{margin:0}header{background:#12213a;color:#fff;padding:32px 20px}header .wrap,main{max-width:1050px;margin:auto}header p{color:#c9d5e7;margin:8px 0 0;max-width:650px;line-height:1.5}.eyebrow{text-transform:uppercase;letter-spacing:.12em;font-size:.75rem;font-weight:750;color:#8fb2ff}h1{font-size:clamp(1.8rem,4vw,2.7rem);margin:8px 0 0;line-height:1.12}main{padding:24px 18px 42px}.layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(300px,.85fr);gap:20px}.card{background:white;border:1px solid var(--line);border-radius:18px;padding:22px;box-shadow:0 6px 22px #182f4d0a}h2{font-size:1.12rem;margin:0 0 5px}.sub{color:var(--muted);font-size:.9rem;line-height:1.5;margin:0 0 20px}.field{margin:16px 0}.field label{display:flex;justify-content:space-between;gap:12px;font-weight:650;font-size:.9rem;margin-bottom:7px}.field small{display:block;color:var(--muted);font-weight:400;font-size:.78rem;margin-top:5px}input,select{width:100%;padding:12px 13px;border:1px solid #cbd5e1;border-radius:10px;font:inherit;background:#fff;color:#172033}input:focus{outline:3px solid #2358d522;border-color:var(--blue)}.rangehead{display:flex;justify-content:space-between;align-items:center}.rangehead output{color:var(--blue);font-weight:750}input[type=range]{padding:0;accent-color:var(--blue);margin-top:7px}.results{display:grid;grid-template-columns:1fr 1fr;gap:11px}.metric{background:#f5f8ff;border:1px solid #e1e9fb;padding:15px;border-radius:13px;min-height:108px}.metric span{display:block;color:#56657d;font-size:.79rem;line-height:1.35}.metric strong{display:block;font-size:1.85rem;letter-spacing:-.04em;margin-top:7px}.metric em{font-style:normal;color:#64748b;font-size:.75rem}.status{margin-top:15px;border-radius:12px;padding:13px 14px;background:#edf8f1;color:#17603b;font-size:.9rem;line-height:1.5}.status.warn{background:#fff5e8;color:#8a4c08}.formula{border-top:1px solid var(--line);margin-top:20px;padding-top:17px;color:#536176;font-size:.82rem;line-height:1.6}.formula code{color:#263957;white-space:normal}.btn{border:0;background:var(--blue);color:white;border-radius:10px;padding:11px 14px;font:inherit;font-weight:700;cursor:pointer}.btn.secondary{background:#eaf0ff;color:#204bb3}.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:16px}.note{font-size:.8rem;color:#64748b;line-height:1.55;margin-top:20px}.foot{color:#64748b;text-align:center;font-size:.78rem;padding:0 18px 26px} @media(max-width:760px){.layout{grid-template-columns:1fr}.card{padding:18px}.results{grid-template-columns:1fr 1fr}}
+:root{--navy:#10213d;--blue:#2d63db;--ink:#17243a;--muted:#63748b;--line:#dbe4f0;--bg:#f3f6fb;--white:#fff;--pale:#f4f7ff;--green:#117a50;--red:#b42318}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.5}
+header{background:var(--navy);color:white;padding:32px 20px 26px}.wrap{max-width:1180px;margin:auto}.eyebrow{text-transform:uppercase;letter-spacing:.12em;font-size:.78rem;font-weight:800;color:#8fb4ff}h1{font-size:clamp(2rem,5vw,3rem);line-height:1.08;margin:10px 0}header p{color:#d8e3f5;max-width:760px;margin:12px 0 0}
+nav{position:sticky;top:0;z-index:5;background:#fff;border-bottom:1px solid var(--line);box-shadow:0 3px 12px #152b4d0b}.navinner{display:flex;gap:8px;overflow:auto;padding:12px 18px;max-width:1180px;margin:auto}.navbtn{white-space:nowrap;border:1px solid var(--line);background:#fff;border-radius:999px;padding:9px 15px;font-weight:700;color:#31435d;cursor:pointer}.navbtn.active,.navbtn:hover{background:var(--blue);color:#fff;border-color:var(--blue)}
+main{max-width:1180px;margin:26px auto;padding:0 18px 40px}.intro{margin-bottom:18px;color:var(--muted)}.tool{display:none}.tool.active{display:block}.layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.92fr);gap:20px}.card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:24px;box-shadow:0 8px 28px #17365d08;min-width:0}.card h2{margin:0 0 4px;font-size:1.25rem}.sub{color:var(--muted);margin:0 0 20px}.field{margin:16px 0}.field label{display:flex;justify-content:space-between;gap:12px;font-weight:700;margin-bottom:7px}.field label span{color:var(--muted);font-weight:500;font-size:.88rem;text-align:right}.field input,.field select{width:100%;border:1px solid #cbd8e8;border-radius:11px;padding:12px 13px;font:inherit;color:var(--ink);background:white}.field input:focus,.field select:focus{outline:3px solid #2d63db22;border-color:var(--blue)}.hint{font-size:.83rem;color:var(--muted);margin-top:5px}.results{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.metric{background:var(--pale);border:1px solid #dce7ff;border-radius:14px;padding:15px;min-width:0}.metric .label{font-size:.85rem;color:#526784}.metric strong{display:block;font-size:clamp(1.35rem,3vw,2rem);line-height:1.2;margin:7px 0;overflow-wrap:anywhere}.metric small{color:var(--muted)}.note{margin-top:15px;padding:12px 14px;border-radius:12px;background:#f7f9fc;color:#52627a;font-size:.88rem}.status{margin-top:14px;font-weight:700}.good{color:var(--green)}.bad{color:var(--red)}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}.btn{border:0;border-radius:10px;padding:11px 15px;background:var(--blue);color:white;font:inherit;font-weight:750;cursor:pointer}.btn.secondary{background:#eaf0fa;color:#263b5b}.wide{grid-column:1/-1}.formula{font-size:.9rem;color:var(--muted);margin-top:16px}footer{max-width:1180px;margin:auto;padding:0 18px 35px;color:var(--muted);font-size:.88rem}footer a{color:var(--blue)}
+@media(max-width:820px){.layout{grid-template-columns:1fr}.card{padding:19px}.results{grid-template-columns:repeat(2,minmax(0,1fr))}.navinner{padding-left:12px}}
+@media(max-width:430px){.results{grid-template-columns:1fr 1fr}.metric{padding:12px}.metric .label{font-size:.78rem}}
 </style>
 </head>
 <body>
-<header><div class="wrap"><div class="eyebrow">Free manufacturing engineering tool</div><h1>Machine &amp; Manpower<br>Capacity Planner</h1><p>Estimate production hours, choose 1, 2, or 3 shifts, and calculate machine and operator requirements against daily demand.</p></div></header>
-<main><div class="layout">
-<section class="card"><h2>Production inputs</h2><p class="sub">Enter daily demand and your shift pattern. Net shift time excludes breaks or other planned non-production time.</p>
-<div class="field"><label for="demand">Customer demand <span>good units / day</span></label><input id="demand" type="number" min="0" step="1" value="1000"><small>Daily customer requirement, excluding the optional flexibility buffer.</small></div>
-<div class="field"><label for="shifts">Shifts per day</label><select id="shifts"><option value="1">1 shift</option><option value="2" selected>2 shifts</option><option value="3">3 shifts</option></select><small>Choose the operating pattern used to cover daily demand.</small></div>
-<div class="field"><label for="hoursPerShift">Hours per shift <span>hours</span></label><input id="hoursPerShift" type="number" min="0.5" max="24" step="0.5" value="8"><small>Scheduled shift length, before breaks.</small></div>
-<div class="field"><label for="breakMinutes">Non-production time per shift <span>minutes</span></label><input id="breakMinutes" type="number" min="0" step="5" value="30"><small>Breaks, planned meetings, or other planned time excluded from production. Do not subtract OEE losses here as well.</small></div>
-<div class="field"><label for="cycle">Machine cycle time <span>seconds / unit</span></label><input id="cycle" type="number" min="0.01" step="0.1" value="30"><small>Assumes one unit per machine cycle. Adjust for cavities or parallel output if needed.</small></div>
-<div class="field"><div class="rangehead"><label for="oee">OEE assumption</label><output id="oeeOut">85%</output></div><input id="oee" type="range" min="10" max="100" step="5" value="85"><small>Availability × Performance × Quality as a decimal percentage.</small></div>
-<div class="field"><label for="machines">Existing machines <span>machines</span></label><input id="machines" type="number" min="0" step="1" value="2"></div>
-<div class="field"><label for="operators">Operators per machine <span>operators / machine</span></label><input id="operators" type="number" min="0" step="0.1" value="1"><small>Simple dedicated-operator assumption; shared operators need a separate work-content study.</small></div>
-<div class="field"><div class="rangehead"><label for="buffer">Capacity flexibility buffer</label><output id="bufferOut">20%</output></div><input id="buffer" type="range" min="0" max="30" step="5" value="20"><small>Extra capacity planned above customer demand.</small></div>
-<div class="actions"><button class="btn secondary" id="reset" type="button">Reset example</button><button class="btn" id="csv" type="button">Export results (CSV)</button></div>
-</section>
-<section class="card"><h2>Capacity results</h2><p class="sub">Live estimates based on the inputs. Machine counts are rounded up to whole machines.</p>
+<header><div class="wrap"><div class="eyebrow">Free manufacturing engineering tools</div><h1>Manufacturing Engineering Tools</h1><p>Practical calculators for production capacity, manpower planning, OEE, takt time and quality performance. Free to use, no sign-up required.</p></div></header>
+<nav aria-label="Calculator navigation"><div class="navinner">
+<button class="navbtn active" data-tool="capacity">Capacity & Manpower</button>
+<button class="navbtn" data-tool="oee">OEE Calculator</button>
+<button class="navbtn" data-tool="takt">Takt & Cycle Time</button>
+<button class="navbtn" data-tool="scrap">Scrap Rate</button>
+</div></nav>
+<main>
+<p class="intro">Choose a tool above. Results update automatically as you change the inputs. Use your site's definitions and validated production data for formal capacity decisions.</p>
+<section class="tool active" id="capacity">
+<div class="layout">
+<div class="card"><h2>Machine & Manpower Capacity Planner</h2><p class="sub">Estimate daily capacity, required machine-hours, machine count and operator positions.</p>
+<div class="field"><label for="cDemand">Customer demand <span>good units / day</span></label><input id="cDemand" type="number" min="0" step="1" value="1000"><div class="hint">Daily requirement before the optional flexibility buffer.</div></div>
+<div class="field"><label for="cShifts">Shifts per day</label><select id="cShifts"><option value="1">1 shift</option><option value="2" selected>2 shifts</option><option value="3">3 shifts</option></select></div>
+<div class="field"><label for="cHours">Scheduled hours per shift <span>hours</span></label><input id="cHours" type="number" min="0.5" max="24" step="0.5" value="8"></div>
+<div class="field"><label for="cBreak">Non-production time per shift <span>minutes</span></label><input id="cBreak" type="number" min="0" max="1440" step="5" value="30"><div class="hint">Breaks and other planned non-production time.</div></div>
+<div class="field"><label for="cCycle">Machine cycle time <span>seconds / unit</span></label><input id="cCycle" type="number" min="0.01" step="0.1" value="30"></div>
+<div class="field"><label for="cOee">OEE assumption <span id="cOeeLabel">85%</span></label><input id="cOee" type="number" min="1" max="100" step="1" value="85"></div>
+<div class="field"><label for="cMachines">Existing machines <span>machines</span></label><input id="cMachines" type="number" min="0" step="1" value="2"></div>
+<div class="field"><label for="cOperators">Operators per machine per shift <span>operators</span></label><input id="cOperators" type="number" min="0" step="0.1" value="1"></div>
+<div class="field"><label for="cBuffer">Flexibility buffer <span id="cBufferLabel">20%</span></label><input id="cBuffer" type="number" min="0" max="200" step="5" value="20"></div>
+<div class="note">Model assumptions: identical machines, constant cycle time and OEE, and a dedicated operator ratio per machine per shift. It does not yet model product mix, changeovers, cavities, shared operators or shift-specific performance.</div>
+</div>
+<div class="card"><h2>Capacity results</h2><p class="sub">Daily estimates; required machine count is rounded up to whole machines.</p>
 <div class="results">
-<div class="metric"><span>Required production time</span><strong id="requiredHours">11.8</strong><em>machine-hours / day</em></div>
-<div class="metric"><span>Required machines<br>(including buffer)</span><strong id="reqMachines">2</strong><em>machines</em></div>
-<div class="metric"><span>Required operators<br>(all shifts combined)</span><strong id="reqOperators">4</strong><em>operator positions across shifts</em></div>
-<div class="metric"><span>Current effective capacity</span><strong id="capacity">1,530</strong><em>good units / day</em></div>
-<div class="metric"><span>Target including buffer</span><strong id="target">1,200</strong><em>units / day</em></div>
-<div class="metric"><span>Capacity gap to target</span><strong id="gap">0</strong><em>additional good units / day</em></div>
-<div class="metric"><span>Net available time per machine</span><strong id="availableHours">15.0</strong><em>hours / machine / day</em></div>
-<div class="metric"><span>Hours needed per existing machine</span><strong id="hoursPerExisting">5.9</strong><em>running hours / machine / day</em></div>
-<div class="metric"><span>Additional machines needed</span><strong id="extra">0</strong><em>above installed machines</em></div>
-</div><div class="status" id="status" aria-live="polite">Your installed capacity covers the target.</div>
-<div class="formula"><strong>Calculation logic</strong><br><code>Net available hours/machine/day = shifts × (hours/shift − non-production minutes/60)</code><br><code>Required machine-hours/day = target demand × cycle time ÷ 3600 ÷ OEE</code><br><code>Capacity/machine/day = net available hours × 3600 ÷ cycle time × OEE</code><br><code>Required machines = ceiling(required machine-hours ÷ net available hours/machine/day)</code><br><code>Operators across shifts = required machines × operators/machine × shifts</code></div>
-<p class="note"><strong>Important limitations:</strong> This is a preliminary estimate, not a validated capacity study. It assumes identical machines, stable cycle time and OEE, one unit per cycle, and dedicated operators. It does not include product mix, changeovers, parallel cavities, bottlenecks, absenteeism, or shared-operator work content. Operator total assumes the same operator coverage on every shift. Validate assumptions before operational or investment decisions.</p>
-</section></div></main><div class="foot">Free prototype · No account or data upload required · Calculations run locally in your browser</div>
+<div class="metric"><div class="label">Required production time</div><strong id="cReqHours">—</strong><small>machine-hours / day</small></div>
+<div class="metric"><div class="label">Required machines incl. buffer</div><strong id="cReqMachines">—</strong><small>machines</small></div>
+<div class="metric"><div class="label">Operator positions</div><strong id="cReqOps">—</strong><small>across all shifts</small></div>
+<div class="metric"><div class="label">Current effective capacity</div><strong id="cCurrentCap">—</strong><small>good units / day</small></div>
+<div class="metric"><div class="label">Target incl. buffer</div><strong id="cTarget">—</strong><small>good units / day</small></div>
+<div class="metric"><div class="label">Capacity gap to target</div><strong id="cGap">—</strong><small>good units / day</small></div>
+<div class="metric"><div class="label">Net available hours / machine</div><strong id="cAvailHours">—</strong><small>hours / day</small></div>
+<div class="metric"><div class="label">Hours needed per existing machine</div><strong id="cHoursPerMachine">—</strong><small>hours / machine / day (even load)</small></div>
+</div><div class="status" id="cStatus"></div><div class="actions"><button class="btn" onclick="downloadCSV('capacity')">Export capacity CSV</button><button class="btn secondary" onclick="resetTool('capacity')">Reset example</button></div>
+<p class="formula">Required machine-hours = target units × cycle time (seconds) ÷ 3,600 ÷ OEE. Required machines = target machine-hours ÷ available net hours per machine, rounded up.</p>
+</div></div></section>
+<section class="tool" id="oee"><div class="layout">
+<div class="card"><h2>OEE Calculator</h2><p class="sub">Calculate availability, performance, quality and overall equipment effectiveness.</p>
+<div class="field"><label for="oPlanned">Planned production time <span>minutes</span></label><input id="oPlanned" type="number" min="0" step="1" value="450"></div>
+<div class="field"><label for="oDown">Unplanned downtime <span>minutes</span></label><input id="oDown" type="number" min="0" step="1" value="45"></div>
+<div class="field"><label for="oCycle">Ideal cycle time <span>seconds / unit</span></label><input id="oCycle" type="number" min="0.01" step="0.1" value="30"></div>
+<div class="field"><label for="oTotal">Total units produced <span>units</span></label><input id="oTotal" type="number" min="0" step="1" value="700"></div>
+<div class="field"><label for="oGood">Good units produced <span>units</span></label><input id="oGood" type="number" min="0" step="1" value="680"></div>
+<div class="note">Use planned production time after excluding planned stops according to your site's OEE standard. Downtime must not exceed planned production time.</div>
+</div><div class="card"><h2>OEE results</h2><p class="sub">Standard OEE = Availability × Performance × Quality.</p><div class="results">
+<div class="metric"><div class="label">Availability</div><strong id="oAvailability">—</strong><small>run time / planned time</small></div>
+<div class="metric"><div class="label">Performance</div><strong id="oPerformance">—</strong><small>ideal time / run time</small></div>
+<div class="metric"><div class="label">Quality</div><strong id="oQuality">—</strong><small>good units / total units</small></div>
+<div class="metric"><div class="label">Overall OEE</div><strong id="oOee">—</strong><small>availability × performance × quality</small></div>
+<div class="metric"><div class="label">Run time</div><strong id="oRun">—</strong><small>minutes</small></div>
+<div class="metric"><div class="label">Ideal production time</div><strong id="oIdeal">—</strong><small>minutes for total output</small></div>
+</div><div class="status" id="oStatus"></div><div class="actions"><button class="btn" onclick="downloadCSV('oee')">Export OEE CSV</button><button class="btn secondary" onclick="resetTool('oee')">Reset example</button></div></div>
+</div></section>
+<section class="tool" id="takt"><div class="layout">
+<div class="card"><h2>Takt Time & Cycle Time</h2><p class="sub">Compare customer demand pace with your process cycle time.</p>
+<div class="field"><label for="tTime">Net available production time <span>minutes / day</span></label><input id="tTime" type="number" min="0" step="1" value="900"></div>
+<div class="field"><label for="tDemand">Customer demand <span>units / day</span></label><input id="tDemand" type="number" min="0" step="1" value="1200"></div>
+<div class="field"><label for="tCycle">Actual cycle time <span>seconds / unit</span></label><input id="tCycle" type="number" min="0" step="0.1" value="35"></div>
+<div class="field"><label for="tOee">Effective performance factor <span>%</span></label><input id="tOee" type="number" min="1" max="100" step="1" value="85"><div class="hint">Optional adjustment for losses; use 100% if comparing raw cycle time only.</div></div>
+<div class="note">Takt time is net available production time divided by customer demand. It is the required pace, not the machine's measured cycle time.</div>
+</div><div class="card"><h2>Takt results</h2><p class="sub">Use the gap to identify whether the process can meet demand.</p><div class="results">
+<div class="metric"><div class="label">Takt time</div><strong id="tTakt">—</strong><small>seconds / unit</small></div>
+<div class="metric"><div class="label">Adjusted cycle time</div><strong id="tAdjusted">—</strong><small>seconds / unit</small></div>
+<div class="metric"><div class="label">Theoretical capacity</div><strong id="tCapacity">—</strong><small>units / day before factor</small></div>
+<div class="metric"><div class="label">Effective capacity</div><strong id="tEffective">—</strong><small>units / day after factor</small></div>
+<div class="metric"><div class="label">Capacity gap</div><strong id="tGap">—</strong><small>units / day (+ = shortfall)</small></div>
+<div class="metric"><div class="label">Cycle vs takt</div><strong id="tStatus">—</strong><small>pace comparison</small></div>
+</div><div class="actions"><button class="btn" onclick="downloadCSV('takt')">Export takt CSV</button><button class="btn secondary" onclick="resetTool('takt')">Reset example</button></div></div>
+</div></section>
+<section class="tool" id="scrap"><div class="layout">
+<div class="card"><h2>Scrap Rate Calculator</h2><p class="sub">Measure scrap against total production and compare it with a target.</p>
+<div class="field"><label for="sTotal">Total units produced <span>units</span></label><input id="sTotal" type="number" min="0" step="1" value="10000"></div>
+<div class="field"><label for="sScrap">Scrap units <span>units</span></label><input id="sScrap" type="number" min="0" step="1" value="150"></div>
+<div class="field"><label for="sTarget">Scrap rate target <span>%</span></label><input id="sTarget" type="number" min="0" max="100" step="0.1" value="2"></div>
+<div class="note">This calculator treats scrap as rejected units divided by total units produced. If your factory uses a different denominator or includes rework, adapt the definition to match the KPI standard.</div>
+</div><div class="card"><h2>Quality results</h2><p class="sub">Use the result to compare performance with your target.</p><div class="results">
+<div class="metric"><div class="label">Scrap rate</div><strong id="sRate">—</strong><small>scrap / total production</small></div>
+<div class="metric"><div class="label">Good units</div><strong id="sGood">—</strong><small>units</small></div>
+<div class="metric"><div class="label">Target maximum scrap</div><strong id="sMax">—</strong><small>units at target rate</small></div>
+<div class="metric"><div class="label">Scrap vs target</div><strong id="sGap">—</strong><small>units above target (+) / below (-)</small></div>
+</div><div class="status" id="sStatus"></div><div class="actions"><button class="btn" onclick="downloadCSV('scrap')">Export scrap CSV</button><button class="btn secondary" onclick="resetTool('scrap')">Reset example</button></div></div>
+</div></section>
+</main>
+<footer>Free tools for manufacturing and industrial engineers. Calculations are estimates and should be checked against your plant's definitions, process constraints and validated data. No inputs are sent to a server; calculations run in your browser. <br><br>Built for practical production planning. <a href="https://github.com/HZarouk/Manufacturing-Engineering-Tools" target="_blank" rel="noopener">View project repository</a></footer>
 <script>
-const ids=['demand','shifts','hoursPerShift','breakMinutes','cycle','oee','machines','operators','buffer'];const el=id=>document.getElementById(id);const n=id=>Math.max(0,Number(el(id).value)||0);let last={};
-function fmt(x,d=1){return Number.isFinite(x)?x.toLocaleString('en-US',{maximumFractionDigits:d,minimumFractionDigits:0}):'—'}
-function calc(){
- const demand=n('demand'), shifts=Math.max(1,Math.round(n('shifts'))), hoursShift=Math.min(24,n('hoursPerShift')), breaks=n('breakMinutes'), cycle=Math.max(.01,n('cycle')), oee=n('oee')/100, machines=n('machines'), ops=n('operators'), buffer=n('buffer')/100;
- const netHoursShift=Math.max(0,hoursShift-breaks/60), availableHours=netHoursShift*shifts, target=demand*(1+buffer);
- const requiredMachineHours=oee>0?target*cycle/3600/oee:0;
- const capacityPerMachine=availableHours*3600/cycle*oee;
- const requiredMachines=capacityPerMachine>0?Math.ceil(target/capacityPerMachine):0;
- const currentCapacity=machines*capacityPerMachine, gap=Math.max(0,target-currentCapacity), extra=Math.max(0,requiredMachines-machines);
- const requiredOperators=requiredMachines*ops*shifts;
- const hoursPerExisting=machines>0?requiredMachineHours/machines:0;
- el('oeeOut').textContent=fmt(n('oee'),0)+'%';el('bufferOut').textContent=fmt(n('buffer'),0)+'%';
- el('requiredHours').textContent=fmt(requiredMachineHours,1);el('reqMachines').textContent=fmt(requiredMachines,0);el('reqOperators').textContent=fmt(requiredOperators,1);el('capacity').textContent=fmt(currentCapacity,0);el('target').textContent=fmt(target,0);el('gap').textContent=fmt(gap,0);el('availableHours').textContent=fmt(availableHours,1);el('hoursPerExisting').textContent=machines>0?fmt(hoursPerExisting,1):'—';el('extra').textContent=fmt(extra,0);
- const status=el('status'); if(netHoursShift<=0){status.className='status warn';status.textContent='Non-production time must be less than the scheduled hours per shift.'}else if(capacityPerMachine<=0){status.className='status warn';status.textContent='Enter a valid OEE above 0% and positive available production time to calculate capacity.'}else if(currentCapacity>=target){status.className='status';status.textContent='Installed capacity covers daily demand including the selected buffer. Required production time is shown in total machine-hours; hours per existing machine assumes the load can be balanced across installed machines.'}else{status.className='status warn';status.textContent='Installed capacity is below the daily target by '+fmt(gap,0)+' units. The model estimates '+fmt(extra,0)+' additional machine(s), assuming the same performance on each shift.'}
- last={demand,shifts,hoursPerShift:hoursShift,nonProductionMinutesPerShift:breaks,cycleTimeSeconds:cycle,oeePercent:n('oee'),existingMachines:machines,operatorsPerMachine:ops,bufferPercent:n('buffer'),netAvailableHoursPerMachinePerDay:availableHours,requiredMachineHoursPerDay:requiredMachineHours,capacityPerMachinePerDay:capacityPerMachine,currentCapacityPerDay:currentCapacity,targetPerDay:target,requiredMachines,requiredOperatorsAcrossShifts:requiredOperators,capacityGapPerDay:gap,additionalMachines:extra,hoursNeededPerExistingMachine:hoursPerExisting};
+const $=id=>document.getElementById(id);
+const fmt=(n,d=1)=>Number.isFinite(n)?n.toLocaleString('en-US',{maximumFractionDigits:d}):'—';
+const pct=n=>Number.isFinite(n)?fmt(n,1)+'%':'—';
+const val=id=>Math.max(0,Number($(id).value)||0);
+function show(id,text,kind=''){const el=$(id);el.textContent=text;el.className='status '+kind}
+function calculateCapacity(){
+ const demand=val('cDemand'), shifts=Math.max(1,val('cShifts')), hours=val('cHours'), brk=val('cBreak'), cycle=val('cCycle'), oee=Math.min(100,val('cOee'))/100, machines=val('cMachines'), ops=val('cOperators'), buffer=val('cBuffer')/100;
+ $('cOeeLabel').textContent=pct(oee*100);$('cBufferLabel').textContent=pct(buffer*100);
+ const netPerShift=Math.max(0,hours-brk/60), available=netPerShift*shifts;
+ const target=demand*(1+buffer), reqHours=cycle>0&&oee>0?target*cycle/3600/oee:NaN;
+ const perMachineCap=cycle>0?available*3600/cycle*oee:NaN;
+ const current=perMachineCap*machines;
+ const reqMachines=(available>0&&cycle>0&&oee>0)?Math.ceil(reqHours/available):NaN;
+ const reqOps=Number.isFinite(reqMachines)?Math.ceil(reqMachines*ops*shifts):NaN;
+ const gap=target-current, hoursPerMachine=machines>0&&cycle>0&&oee>0?demand*cycle/3600/oee/machines:NaN;
+ $('cReqHours').textContent=fmt(reqHours);$('cReqMachines').textContent=Number.isFinite(reqMachines)?fmt(reqMachines,0):'—';$('cReqOps').textContent=Number.isFinite(reqOps)?fmt(reqOps,0):'—';
+ $('cCurrentCap').textContent=fmt(current,0);$('cTarget').textContent=fmt(target,0);$('cGap').textContent=fmt(Math.max(0,gap),0);$('cAvailHours').textContent=fmt(available);$('cHoursPerMachine').textContent=fmt(hoursPerMachine);
+ show('cStatus',!demand?'Enter a positive daily demand.':!available||!cycle||!oee?'Check net available time, cycle time and OEE inputs.':gap<=0?'Current installed capacity meets the target under these assumptions.':'Current installed capacity is below the target. Additional capacity or time may be needed.',gap<=0?'good':'bad');
 }
-ids.forEach(id=>el(id).addEventListener('input',calc));
-el('reset').addEventListener('click',()=>{const v={demand:1000,shifts:2,hoursPerShift:8,breakMinutes:30,cycle:30,oee:85,machines:2,operators:1,buffer:20};Object.entries(v).forEach(([k,val])=>el(k).value=val);calc()});
-el('csv').addEventListener('click',()=>{calc();const rows=[['Metric','Value'],['Customer demand (good units/day)',last.demand],['Shifts per day',last.shifts],['Scheduled hours per shift',last.hoursPerShift],['Non-production minutes per shift',last.nonProductionMinutesPerShift],['Machine cycle time (seconds/unit)',last.cycleTimeSeconds],['OEE (%)',last.oeePercent],['Existing machines',last.existingMachines],['Operators per machine',last.operatorsPerMachine],['Capacity buffer (%)',last.bufferPercent],['Net available hours per machine/day',last.netAvailableHoursPerMachinePerDay],['Required production time (machine-hours/day)',last.requiredMachineHoursPerDay],['Current effective capacity (units/day)',last.currentCapacityPerDay],['Target including buffer (units/day)',last.targetPerDay],['Required machines',last.requiredMachines],['Required operators across shifts',last.requiredOperatorsAcrossShifts],['Hours needed per existing machine/day (balanced load assumption)',last.hoursNeededPerExistingMachine],['Capacity gap to target (units/day)',last.capacityGapPerDay],['Additional machines needed',last.additionalMachines]];const csv=rows.map(r=>r.map(x=>'"'+String(x).replace(/"/g,'""')+'"').join(',')).join('\r\n');const blob=new Blob([csv],{type:'text/csv;charset=utf-8;'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='machine-manpower-capacity-results.csv';a.click();URL.revokeObjectURL(a.href)});calc();
+function calculateOee(){
+ const planned=val('oPlanned'), down=val('oDown'), cycle=val('oCycle'), total=val('oTotal'), good=val('oGood'), run=planned-down;
+ const availability=planned>0&&run>=0?run/planned:NaN, ideal=cycle*total/60, performance=run>0?ideal/run:NaN, quality=total>0&&good<=total?good/total:NaN, oee=availability*performance*quality;
+ $('oAvailability').textContent=pct(availability*100);$('oPerformance').textContent=pct(performance*100);$('oQuality').textContent=pct(quality*100);$('oOee').textContent=pct(oee*100);$('oRun').textContent=fmt(run);$('oIdeal').textContent=fmt(ideal);
+ show('oStatus',down>planned?'Downtime cannot exceed planned production time.':good>total?'Good units cannot exceed total units.':performance>1?'Performance exceeds 100%; check ideal cycle time, counts and time units.':!planned?'Enter planned production time.':'OEE calculated from the entered production data.',down>planned||good>total||performance>1?'bad':'good');
+}
+function calculateTakt(){
+ const mins=val('tTime'), demand=val('tDemand'), cycle=val('tCycle'), factor=Math.min(100,val('tOee'))/100, takt=demand>0?mins*60/demand:NaN, capacity=cycle>0?mins*60/cycle:NaN, effective=capacity*factor, adjusted=cycle>0&&factor>0?cycle/factor:NaN, gap=demand-effective;
+ $('tTakt').textContent=fmt(takt,2);$('tAdjusted').textContent=fmt(adjusted,2);$('tCapacity').textContent=fmt(capacity,0);$('tEffective').textContent=fmt(effective,0);$('tGap').textContent=fmt(gap,0);
+ $('tStatus').textContent=cycle>0&&Number.isFinite(takt)?(adjusted<=takt?'Meets pace':'Too slow'):'—';
+ show('tStatus',cycle>0&&Number.isFinite(takt)?(adjusted<=takt?'Adjusted cycle meets takt.':'Adjusted cycle is slower than takt; capacity may fall short.'):'Enter positive demand and cycle time.',cycle>0&&Number.isFinite(takt)&&adjusted<=takt?'good':'bad');
+}
+function calculateScrap(){
+ const total=val('sTotal'), scrap=val('sScrap'), target=val('sTarget'), rate=total>0&&scrap<=total?scrap/total*100:NaN, max=total*target/100, gap=scrap-max;
+ $('sRate').textContent=pct(rate);$('sGood').textContent=fmt(Math.max(0,total-scrap),0);$('sMax').textContent=fmt(max,0);$('sGap').textContent=fmt(gap,0);
+ show('sStatus',scrap>total?'Scrap units cannot exceed total units.':!total?'Enter total production.':rate<=target?'Scrap rate is within target.':'Scrap rate is above target.',scrap<=total&&total>0&&rate<=target?'good':'bad');
+}
+const fields={capacity:['cDemand','cShifts','cHours','cBreak','cCycle','cOee','cMachines','cOperators','cBuffer'],oee:['oPlanned','oDown','oCycle','oTotal','oGood'],takt:['tTime','tDemand','tCycle','tOee'],scrap:['sTotal','sScrap','sTarget']};
+const calcs={capacity:calculateCapacity,oee:calculateOee,takt:calculateTakt,scrap:calculateScrap};
+document.querySelectorAll('input,select').forEach(el=>el.addEventListener('input',()=>{Object.values(fields).forEach((arr,i)=>{if(arr.includes(el.id))calcs[Object.keys(fields)[i]]()})}));
+document.querySelectorAll('.navbtn').forEach(btn=>btn.addEventListener('click',()=>{document.querySelectorAll('.navbtn').forEach(b=>b.classList.toggle('active',b===btn));document.querySelectorAll('.tool').forEach(s=>s.classList.toggle('active',s.id===btn.dataset.tool));history.replaceState(null,'','#'+btn.dataset.tool)}));
+function resetTool(name){const defaults={capacity:{cDemand:1000,cShifts:2,cHours:8,cBreak:30,cCycle:30,cOee:85,cMachines:2,cOperators:1,cBuffer:20},oee:{oPlanned:450,oDown:45,oCycle:30,oTotal:700,oGood:680},takt:{tTime:900,tDemand:1200,tCycle:35,tOee:85},scrap:{sTotal:10000,sScrap:150,sTarget:2}};Object.entries(defaults[name]).forEach(([id,v])=>$(id).value=v);calcs[name]()}
+function downloadCSV(name){calcs[name]();const ids=fields[name],rows=[['Input','Value'],...ids.map(id=>[$(''+id).previousElementSibling?.innerText||id,$(id).value])];let outputs=[];if(name==='capacity')outputs=[['Required production time (machine-hours/day)',$('cReqHours').textContent],['Required machines',$('cReqMachines').textContent],['Required operator positions',$('cReqOps').textContent],['Current effective capacity',$('cCurrentCap').textContent],['Target including buffer',$('cTarget').textContent],['Capacity gap',$('cGap').textContent]];if(name==='oee')outputs=[['Availability',$('oAvailability').textContent],['Performance',$('oPerformance').textContent],['Quality',$('oQuality').textContent],['OEE',$('oOee').textContent]];if(name==='takt')outputs=[['Takt time seconds/unit',$('tTakt').textContent],['Adjusted cycle time',$('tAdjusted').textContent],['Effective capacity',$('tEffective').textContent],['Capacity gap',$('tGap').textContent]];if(name==='scrap')outputs=[['Scrap rate',$('sRate').textContent],['Good units',$('sGood').textContent],['Target maximum scrap',$('sMax').textContent],['Scrap vs target',$('sGap').textContent]];const csv=[...rows,['',''],['Result','Value'],...outputs].map(r=>r.map(x=>'"'+String(x).replace(/"/g,'""')+'"').join(',')).join('\r\n');const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8;'}));a.download=name+'-calculator-results.csv';a.click();URL.revokeObjectURL(a.href)}
+const hash=location.hash.slice(1);if(fields[hash]){document.querySelector('[data-tool="'+hash+'"]').click()}Object.values(calcs).forEach(fn=>fn());
 </script>
-</body></html>
+</body>
+</html>
