@@ -4,11 +4,31 @@
  <meta name="google-site-verification" content="Lz4CQAsQn7N9JX72P4FaBlTpG2YZt_LOhRBJYjgmHZE" />
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Free manufacturing engineering calculators for industrial engineers: machine capacity, manpower planning, OEE, takt time, cycle time and scrap rate. Calculate production KPIs online with no sign-up.">
-<meta name="keywords" content="manufacturing calculator, machine capacity calculator, manpower calculator, OEE calculator, takt time calculator, scrap rate calculator">
+<title>Free Manufacturing Calculators: OEE, Capacity &amp; Takt Time</title>
+<meta name="description" content="Use free manufacturing engineering calculators for OEE, machine capacity, manpower planning, takt time, cycle time and scrap rate. Get instant production KPI estimates online.">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://hzarouk.github.io/Manufacturing-Engineering-Tools/">
 <meta name="theme-color" content="#10213d">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Manufacturing Engineering Tools">
+<meta property="og:title" content="Free Manufacturing Calculators: OEE, Capacity &amp; Takt Time">
+<meta property="og:description" content="Calculate OEE, machine capacity, manpower requirements, takt time and scrap rate with free practical manufacturing engineering tools.">
+<meta property="og:url" content="https://hzarouk.github.io/Manufacturing-Engineering-Tools/">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Free Manufacturing Calculators: OEE, Capacity &amp; Takt Time">
+<meta name="twitter:description" content="Free online calculators for manufacturing capacity, OEE, takt time, manpower planning and scrap rate.">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2310213d'/%3E%3Cpath d='M12 45V19h8l12 14 12-14h8v26h-9V32L32 43 21 32v13z' fill='%23fff'/%3E%3Ccircle cx='51' cy='49' r='7' fill='%232d63db' stroke='%23fff' stroke-width='2'/%3E%3C/svg%3E">
-<title>Manufacturing Engineering Tools | Free Calculators</title>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Manufacturing Engineering Tools",
+  "url": "https://hzarouk.github.io/Manufacturing-Engineering-Tools/",
+  "description": "Free manufacturing engineering calculators for OEE, machine capacity, manpower planning, takt time, cycle time and scrap rate.",
+  "inLanguage": "en"
+}
+</script>
+
 <style>
 :root{--navy:#10213d;--blue:#2d63db;--ink:#17243a;--muted:#63748b;--line:#dbe4f0;--bg:#f3f6fb;--white:#fff;--pale:#f4f7ff;--green:#117a50;--red:#b42318}
 *{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.5}
@@ -18,6 +38,10 @@ main{max-width:1180px;margin:26px auto;padding:0 18px 40px}.intro{margin-bottom:
 @media(max-width:820px){.layout{grid-template-columns:1fr}.card{padding:19px}.results{grid-template-columns:repeat(2,minmax(0,1fr))}.navinner{padding-left:12px}}
 @media(max-width:430px){.results{grid-template-columns:1fr 1fr}.metric{padding:12px}.metric .label{font-size:.78rem}}
 
+.seo-guide{margin:30px 0;line-height:1.75}
+.seo-guide h2{margin:0 0 10px;color:var(--navy);font-size:1.45rem}
+.seo-guide h3{margin:22px 0 6px;color:var(--navy);font-size:1.05rem}
+.seo-guide p{margin:8px 0;color:#43536b}
 /* Premium toolkit section */
 .premium-section{margin:34px 0 10px;padding:clamp(22px,4vw,42px);border:1px solid #dbe4f0;border-radius:22px;background:linear-gradient(135deg,#fff 0%,#eef4ff 100%);box-shadow:0 8px 28px #17365d08}
 .premium-inner{max-width:900px;margin:0 auto}
@@ -122,6 +146,20 @@ main{max-width:1180px;margin:26px auto;padding:0 18px 40px}.intro{margin-bottom:
 <div class="metric"><div class="label">Scrap vs target</div><strong id="sGap">—</strong><small>units above target (+) / below (-)</small></div>
 </div><div class="status" id="sStatus"></div><div class="actions"><button class="btn" onclick="downloadCSV('scrap')">Export scrap CSV</button><button class="btn secondary" onclick="resetTool('scrap')">Reset example</button></div></div>
 </div></section>
+
+<section class="card seo-guide" aria-labelledby="manufacturing-calculators-guide">
+  <h2 id="manufacturing-calculators-guide">Free Manufacturing Engineering Calculators</h2>
+  <p>Use these practical tools to estimate production capacity, manpower requirements and key manufacturing performance indicators. Enter your own data to explore results directly in your browser, without creating an account.</p>
+  <h3>Machine Capacity and Manpower Planning</h3>
+  <p>The capacity planner estimates required machine-hours, the number of machines needed, operator positions, effective daily capacity and the capacity gap against demand. Results depend on the cycle time, available production time, OEE assumption and flexibility buffer you enter.</p>
+  <h3>Overall Equipment Effectiveness (OEE)</h3>
+  <p>The OEE calculator estimates Availability, Performance and Quality, then combines them to calculate Overall Equipment Effectiveness. Use consistent planned production time, downtime, ideal cycle time and production counts when comparing results.</p>
+  <h3>Takt Time and Cycle Time</h3>
+  <p>Takt time represents the production pace required to meet customer demand. Compare it with actual cycle time to help identify whether a process may struggle to meet the required output. The calculator also estimates theoretical and adjusted daily capacity.</p>
+  <h3>Scrap Rate and Quality Performance</h3>
+  <p>The scrap rate calculator compares rejected units with total production and checks the result against a target. Confirm that the denominator and treatment of rework match your site's approved KPI definition.</p>
+  <p class="note">These calculators provide estimates for planning and learning. Validate calculations against your plant's approved KPI definitions, product mix, process constraints and production data before making operational decisions.</p>
+</section>
 
 <section class="premium-section" id="premium-toolkit" aria-labelledby="premium-title">
   <div class="premium-inner">
