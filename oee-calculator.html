@@ -1,114 +1,197 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
+<meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Free OEE Calculator | Availability, Performance &amp; Quality</title>
-<meta name="description" content="Calculate Overall Equipment Effectiveness (OEE) using planned production time, downtime, ideal cycle time and production counts. Free OEE calculator for manufacturing engineers.">
+<title>Free OEE Calculator for Manufacturing | Formula &amp; Example</title>
+<meta name="description" content="Learn how to calculate OEE with Availability, Performance and Quality. Explore a worked manufacturing example, common data checks, FAQs and a free online OEE calculator.">
 <meta name="robots" content="index,follow">
 <link rel="canonical" href="https://hzarouk.github.io/Manufacturing-Engineering-Tools/oee-calculator.html">
 <meta name="theme-color" content="#10213d">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Manufacturing Engineering Tools">
-<meta property="og:title" content="Free OEE Calculator | Manufacturing Engineering Tools">
-<meta property="og:description" content="Calculate Availability, Performance, Quality and Overall Equipment Effectiveness with a free online manufacturing OEE calculator.">
+<meta property="og:title" content="Free OEE Calculator for Manufacturing | Formula &amp; Example">
+<meta property="og:description" content="Calculate Overall Equipment Effectiveness with a practical manufacturing example and a free browser-based OEE calculator.">
 <meta property="og:url" content="https://hzarouk.github.io/Manufacturing-Engineering-Tools/oee-calculator.html">
 <style>
-:root{--navy:#10213d;--blue:#2d63db;--ink:#17243a;--muted:#63748b;--line:#dbe4f0;--bg:#f3f6fb;--white:#fff;--pale:#f4f7ff}
-*{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.65}
-header{background:var(--navy);color:#fff;padding:28px 20px 34px}.wrap{max-width:980px;margin:auto}header a{color:#b9ccef;text-decoration:none}header a:hover{text-decoration:underline}.eyebrow{color:#8fb4ff;font-size:.78rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase}h1{font-size:clamp(2rem,5vw,3rem);line-height:1.12;margin:12px 0}header p{max-width:760px;color:#d8e3f5;margin:12px 0 0}
-main{max-width:980px;margin:26px auto;padding:0 18px 40px}.card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:clamp(20px,4vw,32px);margin:18px 0;box-shadow:0 8px 28px #17365d08}.card h2{color:var(--navy);margin-top:0;line-height:1.25}.card h3{color:var(--navy);margin-bottom:6px}.formula{padding:16px;background:var(--pale);border:1px solid #dce7ff;border-radius:12px;font-weight:750;overflow-wrap:anywhere}.cta{display:inline-flex;align-items:center;justify-content:center;background:var(--blue);color:white;text-decoration:none;padding:13px 18px;border-radius:10px;font-weight:800;margin-top:8px}.cta:hover{background:#1e4fb8}.muted{color:var(--muted)}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.mini{background:#f8faff;border:1px solid var(--line);border-radius:12px;padding:16px}.mini strong{display:block;color:var(--navy);margin-bottom:5px}footer{background:var(--navy);color:#cbd7e9;padding:22px 20px;font-size:.9rem}footer a{color:#9fc0ff;text-decoration:none}footer .foot{max-width:980px;margin:auto;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
-@media(max-width:650px){.grid{grid-template-columns:1fr}}
-
-details{border-top:1px solid var(--line);padding:14px 0}
-details:last-child{border-bottom:1px solid var(--line)}
-summary{cursor:pointer;font-weight:750;color:var(--navy)}
-
+:root{--navy:#10213d;--blue:#2d63db;--cyan:#56c8d8;--ink:#1c2b42;--muted:#62738b;--line:#dce5f1;--bg:#f3f6fb;--white:#fff;--pale:#edf4ff;--green:#15876b}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;line-height:1.68}
+a{color:var(--blue)}
+.wrap{width:min(1080px,calc(100% - 36px));margin:auto}
+.topbar{background:#fff;border-bottom:1px solid var(--line)}
+.topbar-inner{min-height:62px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand{font-weight:850;color:var(--navy);text-decoration:none;letter-spacing:-.02em}
+.toplink{font-weight:700;text-decoration:none}
+.hero{background:radial-gradient(circle at 85% 18%,#234b7c 0,transparent 32%),linear-gradient(120deg,#0c1b32,#132f53);color:#fff;padding:58px 0 54px}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;color:#b9d8ff;font-size:.82rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+.pip{width:8px;height:8px;background:var(--cyan);border-radius:50%}
+h1{font-size:clamp(2.2rem,5vw,3.8rem);line-height:1.08;letter-spacing:-.04em;max-width:820px;margin:16px 0}
+.hero p{max-width:750px;color:#dce7f7;font-size:1.12rem;margin:0 0 24px}
+.actions{display:flex;gap:12px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;justify-content:center;padding:13px 18px;border-radius:11px;text-decoration:none;font-weight:800;transition:transform .15s ease,background .15s ease}
+.btn:hover{transform:translateY(-1px)}
+.btn-primary{background:#fff;color:var(--navy)}
+.btn-secondary{border:1px solid #8ba8cc;color:#fff}
+main{padding:28px 0 52px}
+.metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:-1px}
+.metric{background:#fff;border:1px solid var(--line);border-radius:16px;padding:20px;box-shadow:0 8px 26px #18345b08}
+.metric strong{display:block;color:var(--navy);font-size:1.08rem}
+.metric span{color:var(--muted);font-size:.94rem}
+.card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:clamp(22px,4vw,34px);margin:18px 0;box-shadow:0 8px 28px #17365d08}
+.card h2{font-size:clamp(1.45rem,3vw,2rem);line-height:1.22;letter-spacing:-.025em;color:var(--navy);margin:0 0 12px}
+.card h3{font-size:1.08rem;color:var(--navy);margin:22px 0 6px}
+.lead{font-size:1.08rem;color:#41536b}
+.formula{background:linear-gradient(110deg,#edf4ff,#f5fbff);border:1px solid #d5e4ff;border-radius:14px;padding:20px;text-align:center;color:var(--navy);font-size:clamp(1.1rem,2.7vw,1.5rem);font-weight:900;margin:18px 0}
+.factors{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:18px}
+.factor{border:1px solid var(--line);border-radius:14px;padding:18px;background:#fbfcff}
+.factor .num{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:10px;background:var(--pale);color:var(--blue);font-weight:900;margin-bottom:10px}
+.factor h3{margin:0 0 6px}
+.factor p{margin:0;color:var(--muted);font-size:.95rem}
+.example-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:stretch}
+.data-list{list-style:none;padding:0;margin:0}
+.data-list li{display:flex;justify-content:space-between;gap:18px;padding:11px 0;border-bottom:1px solid var(--line)}
+.data-list li:last-child{border-bottom:0}
+.data-list span{color:var(--muted)}
+.result{background:var(--navy);color:#fff;border-radius:16px;padding:24px;display:flex;flex-direction:column;justify-content:center}
+.result .small{color:#bfd0e8;font-weight:700}
+.result .big{font-size:3.5rem;line-height:1.1;font-weight:900;letter-spacing:-.05em;margin:8px 0}
+.result p{color:#dbe6f5;margin:0}
+.note{padding:14px 16px;border-left:4px solid var(--cyan);background:#f3fbfd;border-radius:0 10px 10px 0;color:#40536a}
+.checks{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;padding:0;list-style:none}
+.checks li{padding:14px;border:1px solid var(--line);border-radius:12px;background:#fbfcff}
+.checks li:before{content:"✓";font-weight:900;color:var(--green);margin-right:9px}
+.callout{background:linear-gradient(120deg,#10213d,#183d69);border-radius:18px;padding:clamp(22px,4vw,34px);color:#fff;margin:20px 0}
+.callout h2{margin:0 0 8px;font-size:1.65rem}
+.callout p{color:#d7e5f7;max-width:720px}
+.callout .btn{background:#fff;color:var(--navy)}
+.faq details{border-top:1px solid var(--line);padding:15px 0}
+.faq details:last-child{border-bottom:1px solid var(--line)}
+.faq summary{cursor:pointer;font-weight:800;color:var(--navy)}
+.faq details p{margin:9px 0 0;color:#52647a}
+footer{background:#0b1729;color:#c6d5e9;padding:28px 0}
+footer .foot{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
+footer a{color:#a9c9ff;text-decoration:none}
+@media(max-width:720px){.metrics,.factors,.example-grid,.checks{grid-template-columns:1fr}.hero{padding:42px 0}.topbar-inner{align-items:flex-start;padding:14px 0;flex-direction:column}}
 </style>
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebPage","name":"Free OEE Calculator","url":"https://hzarouk.github.io/Manufacturing-Engineering-Tools/oee-calculator.html","description":"A free online calculator for Overall Equipment Effectiveness, including Availability, Performance and Quality."}
+{"@context":"https://schema.org","@type":"WebPage","name":"Free OEE Calculator for Manufacturing","url":"https://hzarouk.github.io/Manufacturing-Engineering-Tools/oee-calculator.html","description":"Learn the OEE formula and use a free manufacturing OEE calculator."}
 </script>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
 {"@type":"Question","name":"What does OEE stand for?","acceptedAnswer":{"@type":"Answer","text":"OEE stands for Overall Equipment Effectiveness. It combines Availability, Performance and Quality."}},
-{"@type":"Question","name":"What is a good OEE score?","acceptedAnswer":{"@type":"Answer","text":"There is no single target suitable for every factory and process."}},
-{"@type":"Question","name":"Do I need Power BI to use the free OEE calculator?","acceptedAnswer":{"@type":"Answer","text":"No. The free browser calculator does not require Power BI."}}
-]}</script>
+{"@type":"Question","name":"What is the OEE formula?","acceptedAnswer":{"@type":"Answer","text":"OEE equals Availability multiplied by Performance multiplied by Quality."}},
+{"@type":"Question","name":"What is a good OEE score?","acceptedAnswer":{"@type":"Answer","text":"There is no single target suitable for every factory. Compare results with the site's process, targets and consistently defined data."}},
+{"@type":"Question","name":"Do I need Power BI to use the free calculator?","acceptedAnswer":{"@type":"Answer","text":"No. The free browser-based OEE calculator does not require Power BI. Power BI Desktop is required for the separate premium templates."}}
+]}
+</script>
 </head>
 <body>
-<header><div class="wrap">
-<p><a href="https://hzarouk.github.io/Manufacturing-Engineering-Tools/">← Manufacturing Engineering Tools</a></p>
-<div class="eyebrow">Free manufacturing calculator</div>
-<h1>Free OEE Calculator</h1>
-<p>Calculate Overall Equipment Effectiveness (OEE) from production time, downtime, ideal cycle time and output. Use the result to understand equipment performance and investigate losses.</p>
+<div class="topbar"><div class="wrap topbar-inner">
+<a class="brand" href="https://hzarouk.github.io/Manufacturing-Engineering-Tools/">FACTORY PERFORMANCE Analytics</a>
+<a class="toplink" href="https://hzarouk.github.io/Manufacturing-Engineering-Tools/">← All free calculators</a>
+</div></div>
+<header class="hero"><div class="wrap">
+<div class="eyebrow"><span class="pip"></span> Manufacturing engineering tool</div>
+<h1>Free OEE Calculator for Manufacturing</h1>
+<p>Understand equipment effectiveness with the OEE formula, a worked production example, practical data checks and a free calculator you can use directly in your browser.</p>
+<div class="actions">
+<a class="btn btn-primary" href="https://hzarouk.github.io/Manufacturing-Engineering-Tools/#oee">Open the Free OEE Calculator →</a>
+<a class="btn btn-secondary" href="#formula">Learn the OEE formula ↓</a>
+</div>
 </div></header>
-<main>
-<section class="card">
-<h2>Calculate OEE online</h2>
-<p>This OEE calculator is part of Manufacturing Engineering Tools, a collection of free manufacturing calculators for industrial and production engineers. The calculator uses four inputs: planned production time, unplanned downtime, ideal cycle time, total units produced and good units produced.</p>
-<p><strong>Open the calculator:</strong> choose the OEE Calculator tab on the main tools page and enter your production data.</p>
-<a class="cta" href="https://hzarouk.github.io/Manufacturing-Engineering-Tools/#oee">Open the Free OEE Calculator →</a>
-<p class="muted">The calculator runs in your browser. No account is required.</p>
-</section>
-<section class="card">
-<h2>What is OEE?</h2>
-<p>Overall Equipment Effectiveness (OEE) is a manufacturing KPI that combines three factors: Availability, Performance and Quality. It helps teams describe how effectively equipment is used during planned production time. The result is most useful when the input definitions and time boundaries are consistent across machines, shifts and reporting periods.</p>
+<main class="wrap">
+<div class="metrics">
+<div class="metric"><strong>Availability</strong><span>How much planned time the equipment was running</span></div>
+<div class="metric"><strong>Performance</strong><span>How actual output compares with ideal output</span></div>
+<div class="metric"><strong>Quality</strong><span>How much output was good product</span></div>
+</div>
+<section class="card" id="formula">
+<h2>What is Overall Equipment Effectiveness (OEE)?</h2>
+<p class="lead">OEE is a manufacturing KPI used to evaluate how effectively equipment is used during planned production time. It combines three factors so teams can distinguish downtime, speed losses and quality losses instead of looking at one number alone.</p>
 <div class="formula">OEE = Availability × Performance × Quality</div>
-<div class="grid">
-<div class="mini"><strong>Availability</strong>Run time ÷ planned production time</div>
-<div class="mini"><strong>Performance</strong>Ideal production time ÷ run time</div>
-<div class="mini"><strong>Quality</strong>Good units ÷ total units produced</div>
+<div class="factors">
+<div class="factor"><div class="num">01</div><h3>Availability</h3><p>Run time divided by planned production time. It reflects the time lost to downtime included in your KPI definition.</p><p><strong>Formula:</strong> Run Time ÷ Planned Production Time</p></div>
+<div class="factor"><div class="num">02</div><h3>Performance</h3><p>Ideal production time compared with actual run time. Unexpected speed losses or short stops may reduce this factor.</p><p><strong>Formula:</strong> Ideal Cycle Time × Total Count ÷ Run Time</p></div>
+<div class="factor"><div class="num">03</div><h3>Quality</h3><p>The share of total produced units that meet the good-unit definition used by your site.</p><p><strong>Formula:</strong> Good Count ÷ Total Count</p></div>
 </div>
 </section>
 <section class="card">
-<h2>OEE calculation example</h2>
-<p>Assume planned production time is 450 minutes, unplanned downtime is 45 minutes, ideal cycle time is 30 seconds per unit, total output is 700 units and good output is 680 units.</p>
+<h2>Worked OEE calculation example</h2>
+<p>Suppose a production line has 450 minutes of planned production time, 45 minutes of downtime, an ideal cycle time of 30 seconds per unit, 700 total units and 680 good units.</p>
+<div class="example-grid">
+<div>
+<ul class="data-list">
+<li><span>Planned production time</span><strong>450 min</strong></li>
+<li><span>Downtime</span><strong>45 min</strong></li>
+<li><span>Run time</span><strong>405 min</strong></li>
+<li><span>Ideal cycle time</span><strong>30 sec/unit</strong></li>
+<li><span>Total / good output</span><strong>700 / 680</strong></li>
+</ul>
+</div>
+<div class="result"><span class="small">Illustrative OEE result</span><div class="big">75.5%</div><p>Availability 90.0% × Performance 86.4% × Quality 97.1% ≈ 75.5%</p></div>
+</div>
+<h3>Calculation steps</h3>
 <ul>
 <li><strong>Run time:</strong> 450 − 45 = 405 minutes.</li>
-<li><strong>Availability:</strong> 405 ÷ 450 = 90%.</li>
+<li><strong>Availability:</strong> 405 ÷ 450 = 90.0%.</li>
 <li><strong>Ideal production time:</strong> 700 × 30 ÷ 60 = 350 minutes.</li>
 <li><strong>Performance:</strong> 350 ÷ 405 ≈ 86.4%.</li>
 <li><strong>Quality:</strong> 680 ÷ 700 ≈ 97.1%.</li>
-<li><strong>OEE:</strong> 90% × 86.4% × 97.1% ≈ 75.5%.</li>
+<li><strong>OEE:</strong> 0.90 × 0.8642 × 0.9714 ≈ 75.5%.</li>
 </ul>
-<p class="muted">This is an illustrative calculation using the stated inputs. In actual reporting, confirm the ideal cycle time, planned production time and treatment of planned stops against your plant's approved OEE standard.</p>
+<p class="note">This example is illustrative. Confirm how your plant defines planned production time, planned stops, ideal cycle time, rework and good units before comparing OEE across lines or reporting periods.</p>
 </section>
 <section class="card">
-<h2>How to use the OEE result</h2>
-<p>Review Availability, Performance and Quality separately before deciding what to improve. Low Availability may point to downtime; low Performance may indicate speed losses or minor stops; low Quality may indicate rejects or defects. These are investigation prompts, not automatic diagnoses—the production data and shop-floor context should confirm the cause.</p>
-<h3>Common input checks</h3>
-<ul>
-<li>Use consistent units for time and cycle time.</li>
-<li>Downtime should not exceed planned production time.</li>
-<li>Good units should not exceed total units produced.</li>
-<li>If calculated Performance exceeds 100%, verify cycle time, output counts and time boundaries.</li>
-<li>Apply the same KPI definitions when comparing equipment or periods.</li>
-</ul>
+<h2>How to interpret your OEE results</h2>
+<p>Use the three factors to decide where to investigate first. They indicate the type of loss to examine, but they do not identify the root cause by themselves.</p>
+<div class="factors">
+<div class="factor"><h3>Low Availability</h3><p>Review downtime categories, breakdowns, changeovers and the planned-time boundary.</p></div>
+<div class="factor"><h3>Low Performance</h3><p>Check actual speed, minor stops, cycle-time assumptions and production counts.</p></div>
+<div class="factor"><h3>Low Quality</h3><p>Review rejects, defects, startup losses and how good units are counted.</p></div>
+</div>
 </section>
 <section class="card">
-<h2>More free manufacturing calculators</h2>
+<h2>Common OEE calculation mistakes</h2>
+<ul class="checks">
+<li>Mixing seconds and minutes in cycle-time calculations.</li>
+<li>Using an ideal cycle time that no longer reflects the process.</li>
+<li>Counting planned stops inconsistently between machines or shifts.</li>
+<li>Letting good-unit count exceed total-unit count.</li>
+<li>Ignoring Performance above 100%, which may indicate mismatched inputs.</li>
+<li>Comparing lines with different KPI definitions without explaining the difference.</li>
+</ul>
+</section>
+<section class="callout">
+<h2>Ready to calculate OEE with your own production data?</h2>
+<p>Open the free browser calculator, enter your planned time, downtime, cycle time and output counts, then review Availability, Performance, Quality and OEE.</p>
+<a class="btn" href="https://hzarouk.github.io/Manufacturing-Engineering-Tools/#oee">Open the Free OEE Calculator →</a>
+</section>
+<section class="card">
+<h2>Explore the other free manufacturing calculators</h2>
+<p>Each link below opens the matching calculator tab on the main tools page.</p>
 <ul>
 <li><a href="https://hzarouk.github.io/Manufacturing-Engineering-Tools/#capacity">Machine capacity and manpower planner</a></li>
 <li><a href="https://hzarouk.github.io/Manufacturing-Engineering-Tools/#takt">Takt time and cycle time calculator</a></li>
 <li><a href="https://hzarouk.github.io/Manufacturing-Engineering-Tools/#scrap">Scrap rate calculator</a></li>
 </ul>
-<p>Need a more structured reporting workflow? Explore the <a href="https://mizouzarouk.gumroad.com/l/kmjhh">Manufacturing OEE &amp; Capacity Analytics Toolkit for Power BI and Excel</a>.</p>
+<p>Need structured reporting and reusable dashboards? Explore the <a href="https://mizouzarouk.gumroad.com/l/kmjhh">Manufacturing OEE &amp; Capacity Analytics Toolkit for Power BI and Excel</a>.</p>
 </section>
-
-<section class="card" id="faq">
+<section class="card faq" id="faq">
 <h2>Frequently Asked Questions</h2>
 <details><summary>What does OEE stand for?</summary><p>OEE stands for Overall Equipment Effectiveness. It combines Availability, Performance and Quality.</p></details>
-<details><summary>What is a good OEE score?</summary><p>There is no single target suitable for every factory and process. Compare results with your plant's targets and consistently defined data.</p></details>
-<details><summary>Why can OEE Performance exceed 100%?</summary><p>Check the ideal cycle time, output count, downtime, planned-time boundary and approved KPI definitions.</p></details>
-<details><summary>Do I need Power BI to use the free OEE calculator?</summary><p>No. The free browser calculator does not require Power BI. Power BI Desktop is required for the separate premium templates.</p></details>
-<details><summary>How can I get help?</summary><p>Contact Factory Performance Analytics through LinkedIn.</p><p><a href="https://www.linkedin.com/in/factory-performance-analytics-275a513a7" target="_blank" rel="noopener noreferrer">Contact us on LinkedIn →</a></p></details>
+<details><summary>What is the OEE formula?</summary><p>OEE equals Availability multiplied by Performance multiplied by Quality. Convert each factor to a decimal before multiplying, then express the result as a percentage.</p></details>
+<details><summary>What is a good OEE score?</summary><p>There is no single target suitable for every factory and process. Compare results with your site's targets, operating context and consistently defined data.</p></details>
+<details><summary>Do I need Power BI to use the free calculator?</summary><p>No. The free browser-based OEE calculator does not require Power BI. Power BI Desktop is required for the separate premium templates.</p></details>
+<details><summary>How can I get help or send feedback?</summary><p>Contact Factory Performance Analytics through LinkedIn and include your question and the calculator context.</p><p><a href="https://www.linkedin.com/in/factory-performance-analytics-275a513a7" target="_blank" rel="noopener noreferrer">Contact us on LinkedIn →</a></p></details>
 </section>
 <section class="card" id="contact">
-<h2>Contact</h2><p>Questions or feedback about this OEE calculator? Contact Factory Performance Analytics through LinkedIn.</p>
-<a class="cta" href="https://www.linkedin.com/in/factory-performance-analytics-275a513a7" target="_blank" rel="noopener noreferrer">Contact us on LinkedIn →</a>
+<h2>Contact Factory Performance Analytics</h2>
+<p>Have a question, suggestion or issue with the OEE calculator? Send us a message through our professional LinkedIn profile.</p>
+<a class="btn" style="background:var(--navy);color:#fff" href="https://www.linkedin.com/in/factory-performance-analytics-275a513a7" target="_blank" rel="noopener noreferrer">Contact us on LinkedIn →</a>
 </section>
-
 </main>
-<footer><div class="foot"><span>© 2026 Manufacturing Engineering Tools</span><a href="https://hzarouk.github.io/Manufacturing-Engineering-Tools/">Back to free calculators</a></div></footer>
+<footer><div class="wrap foot"><span>© 2026 Manufacturing Engineering Tools</span><span><a href="https://hzarouk.github.io/Manufacturing-Engineering-Tools/">Free calculators</a> · <a href="https://mizouzarouk.gumroad.com/l/kmjhh">Premium Toolkit</a></span></div></footer>
 </body>
 </html>
